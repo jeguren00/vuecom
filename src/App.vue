@@ -21,11 +21,12 @@
             }
         },
         methods: {
-            async guardarMensaje(){
+            guardarMensaje(){
                 //guardar en la base de datos
                 //this.comentarios.push({id:5, texto: this.sucomentario});
                 let resultado = await (await fetch(`/api/add?contenido=${this.sucomentario}`));
                 this.comentarios.push({id:resultado.insertId, contenido: this.sucomentario});
+                this.sucomentario = "";
             }
             , async cargarComentarios() {
                 let respuesta = await fetch("/api/get");
