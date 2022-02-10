@@ -21,7 +21,7 @@
             }
         },
         methods: {
-            guardarMensaje(){
+            async guardarMensaje(){
                 //guardar en la base de datos
                 //this.comentarios.push({id:5, texto: this.sucomentario});
                 let resultado = await (await fetch(`/api/add?contenido=${this.sucomentario}`));
@@ -30,7 +30,7 @@
             , async cargarComentarios() {
                 let respuesta = await fetch("/api/get");
                 let respuesta_Json = await respuesta.json();
-                this.comentarios = respuesta_Json;
+                this.comentarios.push(respuesta_Json);
             }
         }
     }
