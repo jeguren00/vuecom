@@ -28,7 +28,7 @@
             , async cargarComentarios() {
                 let respuesta = await fetch("/api/get");
                 let respuesta_Json = await respuesta.json();
-                this.comentarios = respuestaJSON;
+                this.comentarios = respuesta_Json;
             }
         }
     }
