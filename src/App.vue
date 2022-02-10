@@ -13,17 +13,19 @@
             return {
                 sucomentario: "hola",
                 comentarios: [
-                    { id:1, texto:"adios muy buenas", fecha:"17/13/11" },
-                    { id:2, texto:"adios muy puenas", fecha:"18/14/11" },
-                    { id:3, texto:"adios muy duenas", fecha:"19/15/11" },
-                    { id:4, texto:"adios muy cuenas", fecha:"20/16/11" },
+                    { id:1, contenido:"adios muy buenas", fecha:"17/13/11" },
+                    { id:2, contenido:"adios muy puenas", fecha:"18/14/11" },
+                    { id:3, contenido:"adios muy duenas", fecha:"19/15/11" },
+                    { id:4, contenido:"adios muy cuenas", fecha:"20/16/11" },
                 ]
             }
         },
         methods: {
             guardarMensaje(){
                 //guardar en la base de datos
-                this.comentarios.push({id:5, texto: this.sucomentario});
+                //this.comentarios.push({id:5, texto: this.sucomentario});
+                let resultado = await (await fetch(`/api/add?contenido=${this.sucomentario}`));
+                this.comentarios.push({id:resultado.insertId, contenido: this.sucomentario});
             }
             , async cargarComentarios() {
                 let respuesta = await fetch("/api/get");
