@@ -7,8 +7,11 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
+    "@auth0/auth0-vue": "^1.0.0-beta.0",
     "planetscale-node": "^0.3.0",
-    "vue": "^3.2.29"
+    "vercel": "^23.1.2",
+    "vue": "^3.2.29",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.1.0",

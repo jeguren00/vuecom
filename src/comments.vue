@@ -1,0 +1,45 @@
+<template>
+    <div v-if="isAuthenticated">
+        <p>Nombre usuario: {{ this.user.nickname}} Para salir: (<router-link to="/logout">Salir</router-link>)</p>
+        <p>Estas logeado: {{ this.isAuthenticated}}</p>
+        <br>
+        <br>
+        <input type="text" v-model="sucomentario" placeholder="Deja tu comentario" @keypress.enter="guardarMensaje">
+        <button @click="cargarComentarios">Cargar</button>
+        <p v-for="comentario in comentarios" :key="comentario.id">
+            {{ comentario.contenido }}
+        </p>
+    </div>
+    <div v-else>
+        <router-link to="/login">Login</router-link>
+    </div><br>
+
+</template>
+
+<script>
+    export default {
+        name:"app",
+        data() {
+            return {
+                sucomentario: "hola",
+                comentarios: [{ id:1, contenido:"adios muy buenas", fecha:"17/13/11" }],
+                isAuthenticated: this.$auth0.isAuthenticated,
+                user: this.$auth0.user
+            }
+        },
+        methods: {
+            async guardarMensaje(){
+                //guardar en la base de datos
+                //this.comentarios.push({id:5, texto: this.sucomentario});
+                let resultado = await (await fetch(`/api/add?contenido=${this.sucomentario}`));
+                this.comentarios.push({id:resultado.insertId, contenido: this.sucomentario});
+                this.sucomentario = "";
+            }
+            , async cargarComentarios() {
+                let respuesta = await fetch("/api/get");
+                let respuesta_Json = await respuesta.json();
+                this.comentarios.push(respuesta_Json);
+            }
+        }
+    }
+</script>
