@@ -30,15 +30,16 @@
         methods: {
             async guardarMensaje(){
                 //guardar en la base de datos
-                //this.comentarios.push({id:5, texto: this.sucomentario});
-                let resultado = await (await fetch(`/api/add?contenido=${this.sucomentario}`));
+                const token = await this.$auth0.getAccessTokenSilently();
+                const resultado = await (await fetch(`/api/add?contenido=${this.sucomentario}`,{ headers: { Authorization: `Bearer ${token}`}})).json();
                 this.comentarios.push({id:resultado.insertId, contenido: this.sucomentario});
                 this.sucomentario = "";
             }
             , async cargarComentarios() {
                 let respuesta = await fetch("/api/get");
                 let respuesta_Json = await respuesta.json();
-                this.comentarios.push(respuesta_Json);
+                this.comentarios = respuesta_Json;
+                console.log(this.comentarios);
             }
         }
     }

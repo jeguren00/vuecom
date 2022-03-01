@@ -10,6 +10,7 @@ createApp(App)
         client_id: 'bD5f7uPYPEsnxSaRQrItjHoie5CyCWle',
         redirect_uri: window.location.origin,
         useRefreshTokens: true,
-        cacheLocation: 'localstorage'
+        cacheLocation: 'localstorage',
+        audience: "https://vuecom-fawn.vercel.app/api",
       }))
     .mount('#app')
