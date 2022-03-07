@@ -8,7 +8,9 @@
         <button @click="cargarComentarios">Cargar</button>
         <p v-for="comentario in comentarios" :key="comentario.id">
             {{ comentario.contenido }}
-        </p>
+        </p> 
+        <Comment cont="aqui va el content"></Comment>
+        <Header :isLogged="isAuthenticated" :nombre="this.user.nickname" :cont="comentarios"></Header>
     </div>
     <div v-else>
         <router-link to="/login">Login</router-link>
@@ -17,7 +19,12 @@
 </template>
 
 <script>
+    import Comment from './comment.vue';
+    
     export default {
+        components: {
+            Comment, Header
+        },
         name:"app",
         data() {
             return {
@@ -26,6 +33,9 @@
                 isAuthenticated: this.$auth0.isAuthenticated,
                 user: this.$auth0.user
             }
+        },
+        created(){
+            this.cargarComentarios();
         },
         methods: {
             async guardarMensaje(){
@@ -44,3 +54,5 @@
         }
     }
 </script>
+
+<style src="./comments.css" scoped></style>
